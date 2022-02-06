@@ -26,7 +26,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _shi
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"shipFactory\": () => (/* binding */ shipFactory)\n/* harmony export */ });\n//Ship factory function\nconst shipFactory = (name, shipHitBoxes) => {\n    \n    let shipName = name;\n\n    //an array that houses the hitbox's position on the ship, and whether that position has been hit\n    let hitBoxPosition = new Array();\n\n    for (let i = 0; i < shipHitBoxes; i++) {\n        var isHit = false;\n        hitBoxPosition.push(isHit)\n        console.log('heeeeey')\n      }\n    \n\n    return { shipName, hitBoxPosition, shipHitBoxes }\n\n};\n\n\n\n//# sourceURL=webpack://battleship/./src/ships.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"shipFactory\": () => (/* binding */ shipFactory)\n/* harmony export */ });\n//Ship factory function\nconst shipFactory = (name, shipHitBoxes) => {\n    //getting the name of the ship\n    let shipName = name;\n\n    //an array that houses the hitbox's position on the ship, and whether that position has been hit\n    let hitBoxPosition = new Array();\n\n    for (let i = 0; i < shipHitBoxes; i++) {\n        var isHit = false;\n        hitBoxPosition.push(isHit);\n      }\n    \n\n    return { shipName, hitBoxPosition, shipHitBoxes }\n\n};\n\n\n\n//# sourceURL=webpack://battleship/./src/ships.js?");
 
 /***/ })
 
