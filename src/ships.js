@@ -1,7 +1,8 @@
 //Ship factory function
-const shipFactory = (name, shipHitBoxes) => {
+const shipFactory = (name, shipHitBoxes, align) => {
     //getting the name of the ship
     let shipName = name;
+    let alignment = align;
 
     //an array that houses each hitbox's position on the ship
     let hitBoxPosition = new Array();
@@ -23,7 +24,9 @@ const shipFactory = (name, shipHitBoxes) => {
       return hitBoxPosition.every(isHitCheck);
     }
 
-    return { shipName, hitBoxPosition, shipHitBoxes, hit, isSunk }
+    return { shipName, hitBoxPosition, shipHitBoxes, hit, isSunk, alignment }
 };
+
+
 
 export { shipFactory }
