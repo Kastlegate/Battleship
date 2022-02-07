@@ -10,13 +10,23 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/gameboards.js":
+/*!***************************!*\
+  !*** ./src/gameboards.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"gameboardFactory\": () => (/* binding */ gameboardFactory)\n/* harmony export */ });\n/* harmony import */ var _ships_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ships.js */ \"./src/ships.js\");\n  \n\nconst gameboardFactory = () => {\n    \n    //creating the ships for each gameboard\n    const carrier = (0,_ships_js__WEBPACK_IMPORTED_MODULE_0__.shipFactory)('Carrier', 5);\n    const battleship = (0,_ships_js__WEBPACK_IMPORTED_MODULE_0__.shipFactory)('Battleship', 4);\n    const cruiser = (0,_ships_js__WEBPACK_IMPORTED_MODULE_0__.shipFactory)('Cruiser', 3);\n    const submarine = (0,_ships_js__WEBPACK_IMPORTED_MODULE_0__.shipFactory)('Submarine', 3);\n    const destroyer = (0,_ships_js__WEBPACK_IMPORTED_MODULE_0__.shipFactory)('Destroyer', 2);\n\n    // const row\n    // const column = 10;\n    let gameboard = [new Array(10), new Array(10), new Array(10), new Array(10), new Array(10), new Array(10), \n    new Array(10), new Array(10), new Array(10), new Array(10)];\n\n    console.log(gameboard)\n\n    for(let row = 0; row < gameboard.length; ++row)\n    {\n        console.log(\"row \" + row)\n       \n        console.log(gameboard)\n        for(let column = 0; column < gameboard[row].length; ++column){\n            console.log(\"column: \" + column)\n            gameboard[row][column] = \"water\";\n        }\n    }\n\n    \n\n\n\n\n    return { gameboard }\n};\n\n\n\n//# sourceURL=webpack://battleship/./src/gameboards.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ships_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ships.js */ \"./src/ships.js\");\n\n\nconst battleship = (0,_ships_js__WEBPACK_IMPORTED_MODULE_0__.shipFactory)('Battleship', 4);\n\nconsole.log(battleship.shipName);\nconsole.log(battleship.hitBoxPosition[2]);\n\n//# sourceURL=webpack://battleship/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ships_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ships.js */ \"./src/ships.js\");\n/* harmony import */ var _gameboards_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameboards.js */ \"./src/gameboards.js\");\n  \n\n\nconst battleship = (0,_ships_js__WEBPACK_IMPORTED_MODULE_0__.shipFactory)('Battleship', 4);\nconst gameboard = (0,_gameboards_js__WEBPACK_IMPORTED_MODULE_1__.gameboardFactory)();\nconsole.log(battleship.shipName);\nconsole.log(battleship.hitBoxPosition[2]);\n\n//# sourceURL=webpack://battleship/./src/index.js?");
 
 /***/ }),
 
@@ -26,7 +36,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _shi
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"shipFactory\": () => (/* binding */ shipFactory)\n/* harmony export */ });\n//Ship factory function\nconst shipFactory = (name, shipHitBoxes) => {\n    //getting the name of the ship\n    let shipName = name;\n\n    //an array that houses the hitbox's position on the ship, and whether that position has been hit\n    let hitBoxPosition = new Array();\n\n    for (let i = 0; i < shipHitBoxes; i++) {\n        var isHit = false;\n        hitBoxPosition.push(isHit);\n      }\n    \n\n    return { shipName, hitBoxPosition, shipHitBoxes }\n\n};\n\n\n\n//# sourceURL=webpack://battleship/./src/ships.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"shipFactory\": () => (/* binding */ shipFactory)\n/* harmony export */ });\n//Ship factory function\nconst shipFactory = (name, shipHitBoxes) => {\n    //getting the name of the ship\n    let shipName = name;\n\n    //an array that houses each hitbox's position on the ship\n    let hitBoxPosition = new Array();\n    // for loop that creates each hotbox for each ship, and sets it being hit to false\n    for (let i = 0; i < shipHitBoxes; i++) {\n        var isHit = false;\n        hitBoxPosition.push(isHit);\n      }  \n      \n    function hit(number){\n      hitBoxPosition[number] = true;\n    }\n\n    function isHitCheck(value){\n      return value === true;\n    }\n\n    function isSunk(){\n      return hitBoxPosition.every(isHitCheck);\n    }\n\n    return { shipName, hitBoxPosition, shipHitBoxes, hit, isSunk }\n};\n\n\n\n//# sourceURL=webpack://battleship/./src/ships.js?");
 
 /***/ })
 
