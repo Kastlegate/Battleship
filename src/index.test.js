@@ -8,31 +8,27 @@ test('test ship name', () => {
     expect((ship.shipName)).toBe("Battleship");
   });
 
-test('ship position hit is false', () => {
-  const ship = shipFactory('Battleship', 4);
-    expect((ship.hitBoxPosition[2])).toBe(false);
-  }); 
-
-test('ship position hit is true', () => {
-    const ship = shipFactory('Battleship', 4);
-    ship.hit(3);
-    expect((ship.hitBoxPosition[3])).toBe(true);
+test('ship function hit reduces shipHP', () => {
+    let ship = shipFactory('Battleship', 4, "vertical");
+    // console.log(Number(ship.shipHP))
+    ship.hit()
+    expect((ship.shipHP[0])).toBe(3);
   }); 
 
 test('ship is not sunk', () => {
     const ship = shipFactory('Battleship', 4);
-    ship.hit(0);
-    ship.hit(1);
-    ship.hit(2);
+    ship.hit();
+    ship.hit();
+    ship.hit();
     expect((ship.isSunk())).toBe(false);
   }); 
 
 test('ship is sunk', () => {
   const ship = shipFactory('Battleship', 4);
-  ship.hit(0);
-  ship.hit(1);
-  ship.hit(2);
-  ship.hit(3);
+  ship.hit();
+  ship.hit();
+  ship.hit();
+  ship.hit();
   expect((ship.isSunk())).toBe(true);
 }); 
 
