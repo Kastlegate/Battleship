@@ -9,8 +9,13 @@ const gameboardFactory = () => {
     // const submarine = shipFactory('Submarine', 3);
     // const destroyer = shipFactory('Destroyer', 2);
 
-    //variable that keeps track of misses
+    //array that keeps track of misses
     let misses = Array();
+
+    //array that keeps track of misses
+    let hits = Array();
+
+    // variable that keeps count of
 
     //creates the array for the gameboard
     let gameboard = [new Array(10), new Array(10), new Array(10), new Array(10), new Array(10), new Array(10), 
@@ -80,9 +85,9 @@ const gameboardFactory = () => {
 
         if (gameboard[x][y] === 'water'){
             gameboard[x][y] = 'miss'
-            // DOES THIS SOLUTION WORKOUT KASEY? SOUBLE CHECK
+
             misses.push(x, y)
-            console.log(misses);
+            console.log("misses: " + misses);
         }
         else if (gameboard[x][y] === 'miss'){
             console.log('this was already a played position')
@@ -90,7 +95,10 @@ const gameboardFactory = () => {
 
         else if (gameboard[x][y].shipHP){
             gameboard[x][y].hit()
-            gameboard[x][y] = 'hit'
+            gameboard[x][y] = 'hit';
+            hits.push(x, y)
+            console.log("Hits: " + hits)
+             
         }
 
 
