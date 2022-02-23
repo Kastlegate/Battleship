@@ -79,6 +79,8 @@ const gameboardFactory = () => {
         
     }
 
+
+
     //function that checks if ships are sunk and updates the sunken ship counter
     function sunkenShipsCheck(ship){
         if (ship.isSunk() === true){
@@ -100,12 +102,11 @@ const gameboardFactory = () => {
         let y = yPosition;
 
         if (grid[x][y] === 'water'){
-            grid[x][y] = 'miss'
-
+            grid[x][y] = 'miss';
             misses.push(x, y);
         }
         else if (grid[x][y] === 'miss'){
-            console.log('this was already a played position')
+            
         }
         //
         else if (grid[x][y].shipHP > 0){

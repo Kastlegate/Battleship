@@ -29,19 +29,22 @@ const playerFactory = (playername) => {
     gameboard.setShipOnGrid(destroyer, 9, 8)
 
     function sendAttack(enemy, x, y){  
-        
-        if(name === 'Player'){
-            if (enemy.gameboard.grid[x][y].shipHP){
+        var validCheck = false;
+        if(name === 'player'){
+            
+            if (enemy.gameboard.grid[x][y].shipHP || enemy.gameboard.grid[x][y] === 'water'){
                 console.log("Sending attack")  
                 console.log(enemy.gameboard.grid[x][y])    
                 enemy.gameboard.recieveAttack(x, y);
-                console.log(enemy.name + "'s ship has been hit")         
+                console.log(enemy.name + "'s ship has been hit")
+                validCheck = true;
+                return validCheck;         
             }
             else{
                 console.log('NOPE!')
             }
         }
-        else if (name === 'Computer'){
+        else if (name === 'computer'){
             let pcX = computerBrain(10);
             let pcY = computerBrain(10);
             var i = 0;
@@ -50,16 +53,12 @@ const playerFactory = (playername) => {
             while(enemy.gameboard.grid[pcX][pcY] === 'miss' || enemy.gameboard.grid[pcX][pcY] === 'hit'){
                 pcX = computerBrain(10);
                 pcY = computerBrain(10);
-                
-                
                 i++
             }
             enemy.gameboard.recieveAttack(pcX, pcY);
             console.log(enemy.name + " board hit below")
             console.log(enemy.gameboard.grid)
-            console.log('invalid computer plays ' + i)
-
-           
+            console.log('invalid computer plays ' + i)           
         }
         
     }
