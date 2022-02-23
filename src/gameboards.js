@@ -2,7 +2,7 @@ import { shipFactory } from './ships.js';
 
 const gameboardFactory = () => {
     
-    //creating the ships for each gameboard
+    //creating the ships for each grid
     // const carrier = shipFactory('Carrier', 5);
     // const battleship = shipFactory('Battleship', 4);
     // const cruiser = shipFactory('Cruiser', 3);
@@ -15,20 +15,21 @@ const gameboardFactory = () => {
     //array that keeps track of misses
     let hits = Array();
 
-    // variable that keeps count of
+    // variable that keeps count of sunken ships
+    let sunkenShips = 0;
 
-    //creates the array for the gameboard
-    let gameboard = [new Array(10), new Array(10), new Array(10), new Array(10), new Array(10), new Array(10), 
+    //creates the array for the gameboard's grid
+    let grid = [new Array(10), new Array(10), new Array(10), new Array(10), new Array(10), new Array(10), 
     new Array(10), new Array(10), new Array(10), new Array(10)];
 
     
-    //creates the gameboard with positions filled with 'water'
-    for(let row = 0; row < gameboard.length; ++row)
+    //creates the grid with positions filled with 'water'
+    for(let row = 0; row < grid.length; ++row)
     {
         // console.log("row " + row)       
-        for(let column = 0; column < gameboard[row].length; ++column){
+        for(let column = 0; column < grid[row].length; ++column){
             // console.log("column: " + column)
-            gameboard[row][column] = "water";
+            grid[row][column] = "water";
         }
     }
 
@@ -38,7 +39,7 @@ const gameboardFactory = () => {
         let lengthCheck = ship.shipHP;
         let newYPosition = y;
         for (let i = 0; i < lengthCheck; ++i){
-            if(gameboard[x][newYPosition] === "water"){
+            if(grid[x][newYPosition] === "water"){
                 watersAreClear = true;
             }
             else {
@@ -49,20 +50,20 @@ const gameboardFactory = () => {
         return watersAreClear;
     }
 
-    // function to place ship inside the gameboard array
-    function setShipOnGameboard(ship, xPosition, yPosition){
+    // function to place ship inside the grid array
+    function setShipOnGrid(ship, xPosition, yPosition){
         // let name = ship.shipName;
         let x = xPosition;
         let y = yPosition;
         let lengthCheck = Number(ship.shipHP)
 
-        // if statement that checks if the length of the ship can fit on the gameboard
+        // if statement that checks if the length of the ship can fit on the grid
         // quardinates given, and if the quardinates already houses another ship
         if (y + lengthCheck < 11 && checkForShips(ship, x, y)){
     
             let newYPosition = y;
             for (let i = 0; i < lengthCheck; i++){
-                gameboard[x][newYPosition] = ship;
+                grid[x][newYPosition] = ship;
                 newYPosition++
             }                
         }
@@ -78,27 +79,42 @@ const gameboardFactory = () => {
         
     }
 
+    //function that checks if ships are sunk and updates the sunken ship counter
+    function sunkenShipsCheck(ship){
+        if (ship.isSunk() === true){
+            sunkenShips = sunkenShips + 1;
+            if (sunkenShips === 5){
+                console.log("All ships are sunk")
+                return true;
+            }
+        }
+
+        else if (sunkenShips < 5){
+            return false;
+        }
+    }
+
     //function to recieve an attack
     function recieveAttack(xPosition, yPosition){
         let x = xPosition;
         let y = yPosition;
 
-        if (gameboard[x][y] === 'water'){
-            gameboard[x][y] = 'miss'
+        if (grid[x][y] === 'water'){
+            grid[x][y] = 'miss'
 
-            misses.push(x, y)
-            console.log("misses: " + misses);
+            misses.push(x, y);
         }
-        else if (gameboard[x][y] === 'miss'){
+        else if (grid[x][y] === 'miss'){
             console.log('this was already a played position')
         }
-
-        else if (gameboard[x][y].shipHP){
-            gameboard[x][y].hit()
-            gameboard[x][y] = 'hit';
-            hits.push(x, y)
-            console.log("Hits: " + hits)
-             
+        //
+        else if (grid[x][y].shipHP > 0){
+            grid[x][y].hit()
+            sunkenShipsCheck(grid[x][y])
+            console.log("hit ship below")
+            console.log(grid[x][y])
+            grid[x][y] = 'hit';
+            hits.push(x, y);           
         }
 
 
@@ -106,7 +122,7 @@ const gameboardFactory = () => {
     }
 
 
-    return { gameboard, setShipOnGameboard, checkForShips, recieveAttack }
+    return { grid, setShipOnGrid, checkForShips, recieveAttack, sunkenShipsCheck }
 };
 
 export { gameboardFactory }

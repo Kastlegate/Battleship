@@ -1,0 +1,61 @@
+body{
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(60, 144, 240);
+}
+
+#gameBanner{
+    height: 70px;
+    width: 100%;
+    background-color: rgb(0, 110, 255);
+    border-bottom: 2px solid rgb(3, 3, 3);
+}
+
+#gameName{
+    margin: auto;
+    width: fit-content;
+    height: 200px;
+    color: rgb(146, 0, 0);
+    margin-bottom: 10px;
+    font-size: 300%;
+}
+
+#gameContainer{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+#divider{
+    height: 400px;
+    width: 2px;
+    background-color: rgb(0, 0, 0);
+    margin: auto;
+    margin-top: 20px;
+}
+
+.grid{
+    height: fit-content;
+    width: fit-content;
+    background-color: rgb(9, 47, 117);
+    margin: auto;
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+}
+
+.water{
+    height: 30px;
+    width: 30px;
+    background-color: rgb(26, 35, 109, .8);
+    border: 1px solid rgb(3, 3, 3);
+}
+
+.ship{
+    height: 30px;
+    width: 30px;
+    background-color: grey;
+    border: 1px solid rgb(3, 3, 3);
+}
