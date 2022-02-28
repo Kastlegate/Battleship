@@ -70,6 +70,16 @@ test("Tests the recieveAttack function can sink ships", () => {
     expect((destroyer.isSunk())).toBe(true);
     });
 
+    // test.only("Tests the gridReset function resets gameboard grids", () => {
+    //     const player = gameboardFactory();
+    //     const destroyer = shipFactory("Destroyer", 2) 
+    //     const carrier = shipFactory("Carrier", 5) 
+    //     player.setShipOnGrid(destroyer, 9, 8)
+    //     player.resetGrid()
+
+    //     expect(player.grid[9][8]).toBe('water');
+    //     });
+
 // test("Tests the recieveAttack function can report sunken ships", () => {
 //     const player = gridFactory();
 //     const carrier = shipFactory('Carrier', 5);

@@ -15,7 +15,6 @@ const shipFactory = (name, hp, align) => {
       let sunk = false;
       if (shipHP[0] === 0){
         sunk = true;
-        console.log(shipName + " has been sunk")
       }
 
       return sunk

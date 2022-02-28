@@ -28,7 +28,8 @@ const playerFactory = (playername) => {
     gameboard.setShipOnGrid(submarine, 6, 7)
     gameboard.setShipOnGrid(destroyer, 9, 8)
 
-    function sendAttack(enemy, x, y){  
+    function sendAttack(enemy, x, y){ 
+        // A check to see if the sent attack is valid 
         var validCheck = false;
         if(name === 'player'){
             
@@ -38,10 +39,7 @@ const playerFactory = (playername) => {
                 enemy.gameboard.recieveAttack(x, y);
                 console.log(enemy.name + "'s ship has been hit")
                 validCheck = true;
-                return validCheck;         
-            }
-            else{
-                console.log('NOPE!')
+                return validCheck         
             }
         }
         else if (name === 'computer'){

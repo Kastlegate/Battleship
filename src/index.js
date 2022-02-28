@@ -1,10 +1,7 @@
 import { playerFactory } from './player.js'
 import { createGameboard } from './dom.js';
+import { gameFlow } from './gameFlow.js';
 import './style.css';
-
-let player = playerFactory("player");
-let computer = playerFactory("computer");
-let turnSwitch = 1;
 
 
 // Banner for Battleship name display
@@ -66,6 +63,5 @@ computerGrid.id = 'computerGrid'
 computerGrid.classList.add('grid')
 computerContainer.appendChild(computerGrid);
 
+gameFlow()
 
-createGameboard(player, computer);
-createGameboard(computer, player);
