@@ -4,12 +4,7 @@ import { gameboardFactory } from './gameboards.js'
 
 const playerFactory = (playername) => {
 
-    // creating the ships for the board
-    const carrier = shipFactory('Carrier', 5);
-    const battleship = shipFactory('Battleship', 4);
-    const cruiser = shipFactory('Cruiser', 3);
-    const submarine = shipFactory('Submarine', 3);
-    const destroyer = shipFactory('Destroyer', 2);
+    
 
     //creates the gameboard for the player
     const gameboard = gameboardFactory();
@@ -20,14 +15,49 @@ const playerFactory = (playername) => {
     function computerBrain(max) {
         return Math.floor(Math.random() * max);
       }
+
+    function setComputerShips(array){
+        
+
+        array.forEach(element => {
+            let x = computerBrain(10);
+            let y = computerBrain(10);
+            let i = 0;
+            
+            // while loop that runs through the array of ships and generates random position on the board for each ship
+            while(gameboard.setShipOnGrid(element, x, y) === false){
+                x = computerBrain(10);
+                y = computerBrain(10);                
+            }
+            gameboard.setShipOnGrid(element, x, y)
+            console.log(gameboard.grid[x][y])
+        });
+        console.log(gameboard.grid)
+    }
+    //function that sets player ships
+    function setPlayerShips(){
+        // creating the ships for the board
+        const carrier = shipFactory('Carrier', 5);
+        const battleship = shipFactory('Battleship', 4);
+        const cruiser = shipFactory('Cruiser', 3);
+        const submarine = shipFactory('Submarine', 3);
+        const destroyer = shipFactory('Destroyer', 2);
+
+        if(name === 'player'){
+            gameboard.setShipOnGrid(carrier, 9, 0)
+            gameboard.setShipOnGrid(battleship, 1, 2)
+            gameboard.setShipOnGrid(cruiser, 4, 5)
+            gameboard.setShipOnGrid(submarine, 6, 7)
+            gameboard.setShipOnGrid(destroyer, 9, 8)
+        }
     
-
-    gameboard.setShipOnGrid(carrier, 9, 0)
-    gameboard.setShipOnGrid(battleship, 1, 2)
-    gameboard.setShipOnGrid(cruiser, 4, 5)
-    gameboard.setShipOnGrid(submarine, 6, 7)
-    gameboard.setShipOnGrid(destroyer, 9, 8)
-
+        else if(name === 'computer'){
+            let shipsArray = [carrier, battleship, cruiser, submarine, destroyer];
+            setComputerShips(shipsArray)
+        }  
+    }
+    setPlayerShips()
+    
     function sendAttack(enemy, x, y){ 
         // A check to see if the sent attack is valid 
         var validCheck = false;
@@ -61,8 +91,8 @@ const playerFactory = (playername) => {
         
     }
 
-    return {name, gameboard, sendAttack}
+    return {name, gameboard, sendAttack, setPlayerShips, setComputerShips}
 
 }
 
-export { playerFactory }
+export { playerFactory, }

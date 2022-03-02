@@ -12,42 +12,40 @@ function resetGame(player, enemy){
     enemyGridLocation.textContent = '';
     player.gameboard.resetGrid();
     enemy.gameboard.resetGrid();
+    console.log(player.gameboard.grid)
+    console.log(enemy.gameboard.grid)
+    player.setPlayerShips()
+    enemy.setPlayerShips()
+    console.log(player.gameboard.grid)
+    console.log(enemy.gameboard.grid)
     createGameboard(player, enemy);
     createGameboard(enemy, player)
 }
 
 //creates a grid from the gameboard grid
 function createGameboard(player, enemy){
-    // // creates variables of the players names
-    // let playerRound2 = player;
-    // let enemyRound2 = enemy;
-    // function thatreturns true if all of a boards ships have been sunk
-    function gameOver(checkships){
-        return checkships.gameboard.sunkenShipCheck();
+
+    // function that returns true if all of a boards ships have been sunk
+    function gameOver(playerToCheck){
+        return playerToCheck.gameboard.sunkenShipCheck();
     }
-    //ceates a reference variable for the player's grids
+    //ceates a reference variable for each player's grids
     let gridLocation = document.getElementById(player.name + "Grid");
     let enemyGridLocation = document.getElementById(enemy.name + "Grid");
-    // resets the grids to empty so it can be rebuilt with the updated information
+    // resets the grid div to empty so it can be rebuilt with updated information from arrays
     gridLocation.textContent = '';
 
-    
-
-    // function for random number
-    function computerBrain(max) {
-        return Math.floor(Math.random() * max);
-      }
-    
-      // function that creates an attack from a click event
+    // function that creates an attack from a click event
     function fireShot(evt){
         var x = evt.target.getAttribute("data-x");
         var y = evt.target.getAttribute("data-y");
         var name = evt.target.getAttribute("data-name");
        
-        // in this situation, enemy is the player and player is the computer
+        // if statement checking wether the given attack quardinates return true and sending the attack
         if (enemy.sendAttack(player, x, y) === true){
             enemy.sendAttack(player, x, y)
             createGameboard(player, enemy)
+            //check to 
             if(gameOver(player) === true || gameOver(enemy) === true){
                 alert(enemy.name + ' has sunk all of ' + player.name + "'s ships")
                 resetGame(player, enemy)

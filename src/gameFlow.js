@@ -4,10 +4,8 @@ import { createGameboard } from './dom.js';
 function gameFlow(){
     // new players
     let player = playerFactory("player");
-    console.log(player)
     let computer = playerFactory("computer");
-    let turnSwitch = 1;
-    //dom items creating
+    //creating dom gameboards
     let playerBoard = createGameboard(player, computer);
     let computerBoard = createGameboard(computer, player);
   
