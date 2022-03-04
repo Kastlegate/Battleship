@@ -67,9 +67,11 @@ const gameboardFactory = () => {
         for (let i = 0; i < lengthCheck; ++i){
             if(grid[x][newYPosition] === "water"){
                 watersAreClear = true;
+               
             }
             else {
                 watersAreClear = false;
+                break;
             }
             ++newYPosition
         }
@@ -91,9 +93,8 @@ const gameboardFactory = () => {
                 grid[x][newYPosition] = ship;
                 newYPosition++
             } 
-            canBePlaced = true;             
+            canBePlaced = true;         
         }  
-        
         return canBePlaced;
     }
 

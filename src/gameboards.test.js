@@ -12,12 +12,12 @@ test('grid array works as expected', () => {
     });
 
     
-test("Tests the checkForShips function to be true", () => {
+test.only("Tests the checkForShips function to be true", () => {
     const player = gameboardFactory();
     const destroyer = shipFactory("Destroyer", 2) 
     const carrier = shipFactory("Carrier", 5)
-    player.grid[9][4] = carrier.shipName;
-    player.grid[9][5] = carrier;
+    player.grid[9][4] = carrier;
+    player.grid[9][0] = carrier;
 
     expect((player.checkForShips(carrier, 9, 5))).toBe(true);
     });
@@ -36,9 +36,13 @@ test("Tests the checkForShips function to be false", () => {
 test("Tests the setShipOnGrid function", () => {
     const player = gameboardFactory();
     const destroyer = shipFactory("Destroyer", 2) 
-    const carrier = shipFactory("Carrier", 5) 
-    player.setShipOnGrid(destroyer, 9, 8)
-    expect((player.grid[9][9])).toBe(destroyer);
+    const carrier = shipFactory("Carrier", 5)
+    console.log(player.grid[9][3].shipName) 
+    player.setShipOnGrid(destroyer, 9, 3)
+    console.log(player.grid[9][3].shipName) 
+    player.setShipOnGrid(carrier, 9, 4)
+    console.log(player.grid[9][3].shipName) 
+    expect((player.grid[9][4])).toBe(destroyer);
     });
 
 test("Tests the recieveAttack function", () => {

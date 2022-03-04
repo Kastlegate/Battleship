@@ -4,8 +4,6 @@ import { gameboardFactory } from './gameboards.js'
 
 const playerFactory = (playername) => {
 
-    
-
     //creates the gameboard for the player
     const gameboard = gameboardFactory();
     
@@ -16,13 +14,11 @@ const playerFactory = (playername) => {
         return Math.floor(Math.random() * max);
       }
 
-    function setComputerShips(array){
-        
+    function setComputerShips(array){        
 
         array.forEach(element => {
             let x = computerBrain(10);
             let y = computerBrain(10);
-            let i = 0;
             
             // while loop that runs through the array of ships and generates random position on the board for each ship
             while(gameboard.setShipOnGrid(element, x, y) === false){
@@ -30,9 +26,10 @@ const playerFactory = (playername) => {
                 y = computerBrain(10);                
             }
             gameboard.setShipOnGrid(element, x, y)
-            console.log(gameboard.grid[x][y])
+            // console.log(x, y)
+            // console.log(gameboard.grid[x][y])
         });
-        console.log(gameboard.grid)
+        // console.log(gameboard.grid)
     }
     //function that sets player ships
     function setPlayerShips(){
@@ -84,8 +81,8 @@ const playerFactory = (playername) => {
                 i++
             }
             enemy.gameboard.recieveAttack(pcX, pcY);
-            console.log(enemy.name + " board hit below")
-            console.log(enemy.gameboard.grid)
+            // console.log(enemy.name + " board hit below")
+            // console.log(enemy.gameboard.grid)
             console.log('invalid computer plays ' + i)           
         }
         
