@@ -21,6 +21,8 @@ const playerFactory = (playername) => {
     let computerSavedY;
     let computerShouldContinueEast = true;
     let computerShouldContinueWest = true;
+    let computerShouldContinueNorth = true;
+    let computerShouldContinueSouth = true;
     let i = 1;
 
     function setComputerShips(array){        
@@ -116,6 +118,7 @@ const playerFactory = (playername) => {
                     // computersInitialHit.push(randomX)
                     // computersInitialHit.push(randomY)
                     console.log(computerSavedX, computerSavedY)
+                    console.log('end of random attacks? Did computer hit a ship = ' + computerHitAShip)
                 }
 
             }
@@ -123,42 +126,60 @@ const playerFactory = (playername) => {
             // else if that plays near a hit quardinate if the computer lands a hit on a ship
             else if(computerHitAShip === true){
 
-                // creates a variable that increments the saved computerY position, moving the
-                // computers guess to the right of the computer's saved X position, until it fails to find a ship
+                // creates variables that can be incremented or decremented to move the computer's guesses around
+                // near a hit ship quadinate
                 let computerGoingEast = computerSavedY + i;
-                let computerGoingWest = computerSavedY + i;
+                let computerGoingWest = computerSavedY + i * -1;
+                let computerGoingNorth = computerSavedX + i;
+                let computerGoingSouth = computerSavedX + i;
 
+                // console.log('Non random attacks. Did computer hit a ship = ' + computerHitAShip)
+                // console.log('Should computer continue East = ' + computerShouldContinueEast)
+                // console.log('Should computer continue West = ' + computerShouldContinueWest)
+                // console.log('Should computer continue North = ' + computerShouldContinueNorth)
+                // console.log('Should computer continue South = ' + computerShouldContinueSouth)
+
+                // checkl to make sure the next quardinate is in the legal bounds of the board
+                if(computerShouldContinueEast === true && enemy.gameboard.grid[computerSavedX][computerGoingEast] === undefined){
+                    computerShouldContinueEast = false;
+                    computerShouldContinueWest = true;
+                    i = 1;
+                    // resets computer going west to use the updated i value
+                    computerGoingWest = computerSavedY - i;
+                }
                 // if statement that checks to see if the computer should check quardinates to the east of
                 // a hit ship
                 if(computerShouldContinueEast === true){
                     //if statement that checks if a legal move can be made by the computer attacking to the east
                     // of a hit ship. if the path to the right does not equal a miss, hit, or is out of bounds
                     // for the grid array, it will not continue east
+                    console.log('start of computer goes east if. what is to the east? ' + enemy.gameboard.grid[computerSavedX][computerGoingEast + 1])
+                    console.log(computerGoingWest)
                     if(enemy.gameboard.grid[computerSavedX][computerGoingEast] != 'miss' 
                         && enemy.gameboard.grid[computerSavedX][computerGoingEast] != 'hit'
                         && computerGoingEast < 10){
-    
+                            //sends an attack to the player's gameboard using the quardinates of the hit ship, incrementing to the right
                             enemy.gameboard.recieveAttack(computerSavedX, computerGoingEast);
-                            // console.log('before i ' + i)
-                            ++i
-                            // console.log('after i ' + i)
                             
-                            // console.log('before computergopingeast' + computerGoingEast + ' i ' + i)
-    
+                            ++i
+                            
                             if (enemy.gameboard.grid[computerSavedX][computerGoingEast] === 'miss'
                             || enemy.gameboard.grid[computerSavedX][computerGoingEast + 1] === 'miss'  
                             || enemy.gameboard.grid[computerSavedX][computerGoingEast + 1] === 'hit'
-                            || computerGoingEast > 9){
+                            || enemy.gameboard.grid[computerSavedX][computerGoingEast + 1] === 'undefined'){
                                 computerShouldContinueEast = false;
                                 computerShouldContinueWest = true;                                
-                                i = -1;
+                                i = 1;
+
+                                console.log('End of computer should continue east inside if. east = ' + computerShouldContinueEast + 'and i = ' + i)
                             }
                             
                     }
                     else{
                         computerShouldContinueEast = false;
-                        i = -1;
+                        i = 1;
                         computerShouldContinueWest = true;
+                        console.log('End of computer should continue east else if. i = ' + i)
                     }
                 }
                 
@@ -166,19 +187,22 @@ const playerFactory = (playername) => {
                     //if statement that checks if a legal move can be made by the computer attacking to the east
                     // of a hit ship. if the path to the right does not equal a miss, hit, or is out of bounds
                     // for the grid array, it will not continue east
+
+                    console.log('start of computer goes west if. what is to the west? ' + enemy.gameboard.grid[computerSavedX][computerGoingWest])
+
                     if(enemy.gameboard.grid[computerSavedX][computerGoingWest] != 'miss' 
                         && enemy.gameboard.grid[computerSavedX][computerGoingWest] != 'hit'
-                        && computerGoingWest > 0){
-                            console.log("what am i? " + computerGoingWest)
+                        && computerGoingWest > -1){
+                            console.log("what is going west? " + computerGoingWest)
                             enemy.gameboard.recieveAttack(computerSavedX, computerGoingWest);
                             console.log('before i ' + i)
-                            --i
+                            ++i
                             if(i === 0)
-                            {console.log('I was zero')
-                                i = i - 2;
+                            {console.log('I WAS ZEROOOOOOOOO')
+                                i = i + 2;
                             console.log('i is now ' + i)}
                             
-                            console.log('computer going WEST' + computerGoingWest)
+                            console.log('computer going WEST = ' + computerGoingWest)
     
                             if (enemy.gameboard.grid[computerSavedX][computerGoingWest] === 'miss'
                             || enemy.gameboard.grid[computerSavedX][computerGoingWest - 1] === 'miss'  
@@ -188,6 +212,7 @@ const playerFactory = (playername) => {
                                 computerHitAShip = false;
                                 computerShouldContinueEast = true;
                                 i = 1;
+                                // console.log('End of computer should continue West inside if. West = ' + computerShouldContinueWest)
                             }
                             
                         }
@@ -195,7 +220,8 @@ const playerFactory = (playername) => {
                         computerShouldContinueWest = false;
                         i = 1;
                         computerHitAShip = false;
-                        computerGoingEast = true;
+                        computerShouldContinueEast = true;
+                        // console.log('End of computer should continue West else if. West = ' + computerShouldContinueWest)
                     }
                 } 
                 
