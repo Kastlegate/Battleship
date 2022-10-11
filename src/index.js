@@ -29,7 +29,7 @@ gameContainer.appendChild(playerContainer)
 //player Banner
 let playerBanner = document.createElement('div')
 playerBanner.id = 'playerBanner';
-playerBanner.textContent = 'Player';
+playerBanner.textContent = "Player's Board";
 playerBanner.classList.add('banner');
 playerContainer.appendChild(playerBanner)
 
@@ -53,7 +53,7 @@ gameContainer.appendChild(computerContainer)
 //player Banner
 let computerBanner = document.createElement('div')
 computerBanner.id = 'computerBanner';
-computerBanner.textContent = 'Computer';
+computerBanner.textContent = "Computer's Board";
 computerBanner.classList.add('banner');
 computerContainer.appendChild(computerBanner)
 
